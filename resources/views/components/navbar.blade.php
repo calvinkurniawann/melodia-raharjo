@@ -3,7 +3,7 @@
 <nav class="bg-slate-950 p-4">
     <div class="container mx-auto flex justify-between items-center">
         <a href="/" class="text-white font-bold text-3xl">Melo<span class="text-yellow-400">Gita</span></a>
-        <div class=" flex justify-between items-center m-2 ">
+        <div class=" flex justify-between items-center m-2 mr-10">
             <a href="" class="text-white mx-4">Kategori</a>
             <a href="" class="text-white mx-4">Kontak</a>
             <a href="" class="text-white mx-4 ">Tentang Kami</a>
@@ -18,9 +18,9 @@
                     </button>
                     <ul class="absolute hidden  pt-1 group-active:block bg-white text-black">
                         @if (Auth::user()->utype === 'ADM')
-                        <li><a href="dashboard/barang">Dashboard</a></li>
+                        <li><a href="dashboard/barang" class="text-left px-4 py-4">Dashboard</a></li>
                         @else 
-                        <li><a href="profile">Profile</a></li>
+                        <li><a href="{{ route('profile.show') }}" class="text-left px-4 py-4">Profile</a></li>
                         @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
