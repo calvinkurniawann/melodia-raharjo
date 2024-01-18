@@ -14,11 +14,23 @@
                 <p class="text-sm font-medium text-gray-600">Name:</p>
                 <p class="text-lg">{{ auth()->user()->name }}</p>
             </div>
-    
+            
             <div class="mb-4">
                 <p class="text-sm font-medium text-gray-600">Email:</p>
                 <p class="text-lg">{{ auth()->user()->email }}</p>
             </div>
+            
+            @if (auth()->user()->no_telepon == 'null')
+            <div class="mb-4">
+                <p class="text-sm font-medium text-gray-600">Nomor Telepon:</p>
+                <p class="text-lg">Nomor Telepon belum diisi</p>
+            </div>
+            @else
+            <div class="mb-4">
+                <p class="text-sm font-medium text-gray-600">Nomor Telepon:</p>
+                <p class="text-lg">{{ auth()->user()->no_telepon }}</p>
+            </div>
+            @endif
     
             <div class="flex items-center justify-between">
                 <a href="{{ route('profile.edit') }}" class="text-blue-500">Edit Profile</a>

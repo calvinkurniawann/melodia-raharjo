@@ -29,11 +29,13 @@ class UserController extends Controller
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'no_telepon' => 'numeric|nullable',
     ]);
 
     $user->update([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
+        'no_telepon' => $request->input('no_telepon'),
     ]);
 
     return Redirect::route('profile.show')->with('success', 'Profile updated successfully!');

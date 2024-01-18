@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Barang;
 
@@ -45,5 +46,10 @@ Route::prefix('dashboard')->group(function () {
 Route::middleware(['auth','auth.admin'])->group(function(){
     Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
 });
+
+Route::get('/cart', [CartController::class, 'CartView'])->name('cart');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
 require __DIR__.'/auth.php';
