@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -12,26 +13,34 @@ class CartController extends Controller
 {
     public function CartView(Request $request)
     {
-        $user = auth()->user();
-        $cart = $user->cart;
-
-        if ($cart === null) {
-            $cart = $user->cart()->create(['id_user' => $user->id]);
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            $user = auth()->user();
+            $cart = $user->cart;
+    
+            // Check if the user has a cart; create one if not
+            if ($cart === null) {
+                $cart = $user->cart()->create(['id_user' => $user->id]);
+            }
+    
+            $cartItems = $cart->products()->withPivot('kuantitas')->get();
+    
+            $calculateTotalHarga = function ($cartItems) {
+                return $cartItems->reduce(function ($total, $item) {
+                    $productHarga = $item['harga'] * $item['pivot']['kuantitas'];
+                    return $total + $productHarga;
+                }, 0);
+            };
+    
+            $totalPrice = $calculateTotalHarga($cartItems);
+    
+            return view('cart', compact('cartItems', 'totalPrice'));
+        } else {
+            // Handle the case where the user is not authenticated
+            return redirect()->route('login'); // You can redirect to the login page or handle it according to your application logic.
         }
-
-        $cartItems = $cart->products()->withPivot('kuantitas')->get();
-
-        $calculateTotalHarga = function ($cartItems) {
-            return $cartItems->reduce(function ($total, $item) {
-                $productHarga = $item['harga'] * $item['pivot']['kuantitas'];
-                return $total + $productHarga;
-            }, 0);
-        };
-
-        $totalPrice = $calculateTotalHarga($cartItems);
-
-        return view('cart', compact('cartItems', 'totalPrice'));
     }
+    
 
 
     public function addToCart(Request $request)

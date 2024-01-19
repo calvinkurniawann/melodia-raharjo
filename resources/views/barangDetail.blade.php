@@ -22,6 +22,19 @@
                         <p class="text-xl">Deskripsi</p>
                         <span class="text-3xl font-bold mt-5 break-all">{{ $barang->deskripsi }}</span>
                     </div>
+                    <form action="{{ route('cart.add') }}" method='POST'>
+                        @csrf
+                        @method('post')
+                        <input type="hidden" value="{{ $barang->id }}" name="id_product">
+                        <input type="hidden" value="1" name="kuantitas">
+                        <div class="w-full flex justify-between items-center">
+                            <button type="submit" class="bg-red-600 mt-2 w-32 h-10 font-semibold">Add to Cart</button>
+                            <div>
+                                <p>Stok: </p>
+                                <p>{{ $barang->stok }}</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
