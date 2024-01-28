@@ -10,6 +10,8 @@ class Barang extends Model
 {
     use HasFactory;
 
+    protected $table = 'barangs';
+
     protected $fillable = [
         'nama',
         'deskripsi',
@@ -25,5 +27,10 @@ class Barang extends Model
     public function carts()
     {
         return $this->belongsToMany(Cart::class, 'cart_product', 'id_product', 'id_cart')->withPivot('kuantitas');
+    }
+
+    public function reviews()
+    {
+    return $this->hasMany(Review::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
@@ -37,15 +38,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [UserController::class, 'update'])->name('profile.update');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
 Route::prefix('dashboard')->group(function () {
     Route::resource('barang', BarangController::class, ['as' => 'dashboard']);
 })->middleware(['auth', 'verified','auth.admin']);
-
-Route::middleware(['auth','auth.admin'])->group(function(){
-    Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
-});
 
 Route::get('/cart', [CartController::class, 'CartView'])->name('cart');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');

@@ -37,6 +37,31 @@
                     </form>
                 </div>
             </div>
+            <h2>Customer Reviews</h2>
+@forelse ($barang->reviews as $review)
+    <div>
+        <p><strong>Rating: </strong>{{ $review->rating }}</p>
+        <p><strong>User: </strong>{{ $review->user->name }}</p>
+        <p>{{ $review->comment }}</p>
+    </div>
+@empty
+    <p>No reviews yet.</p>
+@endforelse
+
+{{-- Add a Form for Adding Reviews (Assuming authenticated users) --}}
+@auth
+    <form method="post" action="{{ route('reviews.store') }}">
+        @csrf
+        <input type="hidden" name="barang_id" value="{{ $barang->id }}">
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        <label for="comment">Comment:</label>
+        <textarea name="comment" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+@else
+    <p>Please log in to leave a review.</p>
+@endauth
         </div>
     </div>
 </x-guest-layout>
