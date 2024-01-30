@@ -93,20 +93,11 @@
         <button type="button"
             class="relative left-8 top-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kembali</button>
     </a>
-    <div class="container mx-auto my-8">
-        <h2 class="text-2xl font-semibold mb-4">Shopping Cart</h2>
+    <div class="container mx-auto my-8 ">
+        <h2 class="text-4xl font-semibold mb-4 mx-auto text-center">Shopping Cart</h2>
 
         @if (count($cartItems) > 0)
-            <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="py-2 px-4 border-b">Product</th>
-                        <th class="py-2 px-4 border-b">Nama</th>
-                        <th class="py-2 px-4 border-b">Quantity</th>
-                        <th class="py-2 px-4 border-b">Price</th>
-                        <th class="py-2 px-4 border-b">Action</th>
-                    </tr>
-                </thead>
+            <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden ">
                 <tbody class="align-middle text-center">
                     @foreach ($cartItems as $barang)
                         <tr>
@@ -121,36 +112,38 @@
                             </td>
                             <td class="py-2 px-4 border-b align-middle ">{{ $barang->nama }}</td>
                             <td class="py-9 px-4 border-b align-middle flex flex-row items-center justify-center ">
-                                <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
-                                    class="flex gap-1">
-                                    @csrf
-                                    <input type="hidden" value="increment" name="action">
-                                    <button
-                                        class="flex text-center items-center justify-center w-[25px] h-[25px] bg-yellow-400 border-gray-700 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
-                                        type="submit" name="action" value="increment">
-                                        <svg class="flex w-4 h-4 text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="3" d="M9 1v16M1 9h16" />
-                                        </svg>
-                                    </button>
-                                </form>
-                                <p class="mx-3">{{ $barang->pivot->kuantitas }}</p>
-                                <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
-                                    class="flex gap-1">
-                                    @csrf
-                                    <input type="hidden" value="decrement" name="action">
-                                    <button
-                                        class="flex text-center items-center justify-center w-[25px] h-[25px] bg-yellow-400 border-gray-700 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
-                                        type="submit">
-                                        <svg class="flex w-4 h-4 text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="3" d="M1 1h16" />
-                                        </svg>
-                                    </button>
-                                </form>
-                                </td>
+                                <div class="flex border-[1px]">
+                                    <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
+                                        class="flex gap-1">
+                                        @csrf
+                                        <input type="hidden" value="increment" name="action">
+                                        <button
+                                            class="flex text-center items-center justify-center w-[25px] h-[25px] border-gray-700 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
+                                            type="submit" name="action" value="increment">
+                                            <svg class="flex w-2 h-2 text-black" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="3" d="M9 1v16M1 9h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    <p class="px-[9px] border-x-[1px] ">{{ $barang->pivot->kuantitas }}</p>
+                                    <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
+                                        class="flex gap-1">
+                                        @csrf
+                                        <input type="hidden" value="decrement" name="action">
+                                        <button
+                                            class="flex text-center items-center justify-center w-[25px] h-[25px] border-gray-700 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
+                                            type="submit">
+                                            <svg class="flex w-2 h-2 text-black" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="3" d="M1 1h16" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                             <td class="py-2 px-4 border-b align-middle">Rp. {{ number_format($barang->harga) }}</td>
                             <td class="py-2 px-4 border-b align-middle">
                                 <form action="{{ route('cart.delete', ['id' => $barang->id]) }}" method="POST">

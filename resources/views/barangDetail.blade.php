@@ -1,5 +1,9 @@
 <x-guest-layout>
-    <div class="max-w-7xl px-10 py-5 min-h-[200px]">
+    <a href="/">
+        <button type="button"
+            class="relative left-8 top-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kembali</button>
+    </a>
+    {{-- <div class="max-w-7xl px-10 py-5 min-h-[200px]">
         <div class="w-full rounded-lg p-5 mb-10">
             <div class="w-full h-10 flex justify-between">
                 <p class="text-xl font-semibold">Detail Produk</p>
@@ -48,7 +52,6 @@
     <p>No reviews yet.</p>
 @endforelse
 
-{{-- Add a Form for Adding Reviews (Assuming authenticated users) --}}
 @auth
     <form method="post" action="{{ route('reviews.store') }}">
         @csrf
@@ -63,5 +66,43 @@
     <p>Please log in to leave a review.</p>
 @endauth
         </div>
+    </div> --}}
+    {{-- lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 --}}
+    <!-- component -->
+<section class="text-gray-700 body-font overflow-hidden bg-white h-full">
+    <div class="container py-24 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        @if ($barang->gambar == 'default.jpg')
+                    <img src="{{ asset('gambar/default.jpg') }}"
+                        class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" alt="" />
+                @else
+                    <img src="{{ asset('storage/' . $barang->gambar) }}"
+                        class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" alt="" />
+                @endif
+        <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <h2 class="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $barang->nama }}</h1>
+          <p class="leading-relaxed">{{ $barang->deskripsi }}</p>
+          <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+          </div>
+          <div class="flex items-center">
+            <span class="title-font font-medium text-2xl text-gray-900">Rp. {{ number_format($barang->harga, 0, '.', '.') }}
+            </span>
+            <form action="{{ route('cart.add') }}" method='POST' class="flex justify-between items-center">
+                @csrf
+                @method('post')
+                <input type="hidden" value="{{ $barang->id }}" name="id_product">
+                <div class="flex ml-6 items-center">
+                    <span class="mr-3">Size</span>
+                    <div class="relative">
+                      <input type="number" name="kuantitas" min="1" value="1" class="border rounded-md px-3 py-2 mt-1 w-16 mr-10">
+                    </div>
+                </div>
+                <button class="flex ml-auto text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-white hover:border-r-[3px] hover:border-b-[3px] hover:border-[1px] hover:text-black hover:border-black rounded" type="submit">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 </x-guest-layout>

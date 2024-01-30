@@ -52,7 +52,7 @@
                                     {{ $barang->deskripsi }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                   
+                                    Rp. {{ number_format($barang->harga) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $barang->stok }}

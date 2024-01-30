@@ -2,7 +2,7 @@
 
 <nav class="bg-slate-950 p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="/" class="text-white font-bold text-3xl">Melo<span class="text-yellow-400">Gita</span></a>
+        <a href="/" class="text-white font-bold text-3xl">Melo<span class="text-blue-400">Gita</span></a>
         <div class=" flex justify-between items-center m-2 mr-10">
             <a href="" class="text-white mx-4">Kategori</a>
             <a href="" class="text-white mx-4">Kontak</a>

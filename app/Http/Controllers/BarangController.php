@@ -11,10 +11,10 @@ class BarangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
     {
         $barangs = Barang::all();
-        return view('dashboard.barangManagement', compact('barangs' , 'reviews'));
+        return view('dashboard.barangManagement', compact('barangs'));
     }
 
     /**

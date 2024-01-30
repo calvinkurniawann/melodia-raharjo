@@ -30,8 +30,8 @@ class ReviewController extends Controller
     $review->save();
 
     // Redirect back to the product detail page with a success message
-    return redirect()->route('barangDetail', ['id' => $request->input('barang_id')])
-        ->with('success', 'Review submitted successfully!');
+    return redirect()->route('dashboard.barang.show', ['barang' => $request->input('barang_id')])
+    ->with('success', 'Review submitted successfully!');
     }
 
 }
