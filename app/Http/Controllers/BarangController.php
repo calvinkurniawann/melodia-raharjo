@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barangs = Barang::all();
+        $barangs = Barang::with('category')->get();
         return view('dashboard.barangManagement', compact('barangs'));
     }
 
@@ -22,7 +23,8 @@ class BarangController extends Controller
      */
     public function create()
     {
-        return view('dashboard.createBarang');
+        $categories = Category::all();
+        return view('dashboard.createbarang', compact('categories'));
     }
 
     /**
@@ -34,6 +36,7 @@ class BarangController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // adjust allowed image types and size
@@ -47,6 +50,7 @@ class BarangController extends Controller
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'harga' => $request->input('harga'),
+            'category_id' => $request->input('category_id'),
             'stok' => $request->input('stok'),
             'gambar' => $gambarPath,
         ]);
@@ -64,7 +68,7 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        $barang = $barang;
+        $barang->load('category');
         return view('barangDetail', compact('barang'));
     }
 
@@ -74,8 +78,9 @@ class BarangController extends Controller
     public function edit(Barang $barang)
     {
         // $barang = Barang::findOrFail($barang->id);
-        $barang = $barang;
-        return view('dashboard.barangEdit', compact('barang'));
+        $barang->load('category');
+        $categories = Category::all();
+        return view('dashboard.barangEdit', compact('barang','categories'));
     }
 
     /**
@@ -86,6 +91,7 @@ class BarangController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // adjust allowed image types and size
@@ -106,6 +112,7 @@ class BarangController extends Controller
         // Update other fields
         $barang->nama = $request->input('nama');
         $barang->deskripsi = $request->input('deskripsi');
+        $barang->category_id = $request->input('category_id');
         $barang->harga = $request->input('harga');
         $barang->stok = $request->input('stok');
 

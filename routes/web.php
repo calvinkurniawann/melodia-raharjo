@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Barang;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +45,14 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('dashboard')->group(function () {
     Route::resource('barang', BarangController::class, ['as' => 'dashboard']);
+    Route::resource('category', CategoryController::class, ['as' => 'dashboard']);
 })->middleware(['auth', 'verified','auth.admin']);
 
 Route::get('/cart', [CartController::class, 'CartView'])->name('cart');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+
+Route::get('/category/page', [CategoryController::class, 'page'])->name('categories.page');
 
 require __DIR__.'/auth.php';

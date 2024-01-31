@@ -48,7 +48,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $barang->nama }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 break-words">
                                     {{ $barang->deskripsi }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">

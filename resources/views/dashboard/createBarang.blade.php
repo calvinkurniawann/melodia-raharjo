@@ -9,7 +9,7 @@
                     @csrf
                     <div class="mb-5">
                         <label for="nama"
-                            class="block mb-2 text-[15px] font-medium text-gray-900 dark:text-white">Nama Produk:
+                            class="block mb-2 text-[15px] font-medium text-gray-900">Nama Produk:
                         </label>
                         <input type="text" id="nama" name="nama"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -18,7 +18,7 @@
                     <div class="mb-5">
                         <label
                           for="deskripsi"
-                          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                          class="block mb-2 text-sm font-medium text-gray-900 "
                           >Deskripsi produk: </label
                         >
                         <textarea
@@ -30,16 +30,24 @@
                         ></textarea>
                       </div>
                     <div class="mb-5">
+                        <label for="category_id" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+                        <select name="category_id" id="category_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                         @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-5">
                         <label for="harga"
-                            class="block mb-2 text-[15px] font-medium text-gray-900 dark:text-white">Harga Produk:
+                            class="block mb-2 text-[15px] font-medium text-gray-900 ">Harga Produk:
                         </label>
                         <input type="number" id="harga" name="harga"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="19000000" required>
                     </div>
                     <div class="mb-5">
                         <label for="stok"
-                            class="block mb-2 text-[15px] font-medium text-gray-900 dark:text-white">Stok Produk:
+                            class="block mb-2 text-[15px] font-medium text-gray-900 ">Stok Produk:
                         </label>
                         <input type="number" id="stok" name="stok"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -47,7 +55,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="gambar"
-                            class="block mb-2 text-[15px] font-medium text-gray-900 dark:text-white">Gambar Produk:
+                            class="block mb-2 text-[15px] font-medium text-gray-900">Gambar Produk:
                         </label>
                         <input type="file" id="gambar" name="gambar"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

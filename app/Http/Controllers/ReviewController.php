@@ -14,7 +14,6 @@ class ReviewController extends Controller
     // Validate the request data
     $request->validate([
         'barang_id' => 'required|exists:barangs,id',
-        'rating' => 'required|integer|min:1|max:5',
         'comment' => 'required|string',
     ]);
 
@@ -22,7 +21,6 @@ class ReviewController extends Controller
     $review = new Review([
         'barang_id' => $request->input('barang_id'),
         'user_id' => Auth::id(), // Assuming users are authenticated
-        'rating' => $request->input('rating'),
         'comment' => $request->input('comment'),
     ]);
 

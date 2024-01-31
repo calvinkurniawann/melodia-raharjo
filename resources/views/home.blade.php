@@ -12,7 +12,7 @@
     </div> -->
     <section class="bg-slate-950 h-[100vh] w-[100%] flex flex-col items-center justify-center " style="background-image: url({{ asset('gambar/home.jpg') }}); ">
         <div class="text-center mb-7">
-            <h1 class="text-7xl text-blue-400 font-bold ">Melangkah ke Dunia Musik</h1>
+            <h1 class="text-7xl text-white font-bold">Melangkah ke Dunia Musik</h1>
             <h1 class="text-7xl text-white font-bold m-auto ">Dengan Gaya dan Suara</h1>
         </div>
         <div class="w-full flex flex-col justify-center items-center">
@@ -42,19 +42,19 @@
                     class="w-full bg-white rounded-md overflow-hidden text-center flex flex-col justify-center">
                     @if ($barang->gambar == 'default.jpg')
                         <div class="w-sm h-48 block overflow-hidden">
-                            <img class="rounded-t-lg object-cover w-full h-full" src="{{ asset('gambar/default.jpg') }}"
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('gambar/default.jpg') }}"
                                 alt="" />
                         </div>
                     @else
-                        <div class="overflow-hidden w-sm h-48 block">
-                            <img class="rounded-t-lg " src="{{ asset('storage/' . $barang->gambar) }}" alt="" />
+                        <div class="overflow-hidden w-sm h-48 block ">
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('storage/' . $barang->gambar) }}" alt="" />
                         </div>
                     @endif
                     <div class="p-4 flex flex-col justify-center">
                         <p class="text-gray-700 mb-4">{{ $barang->kategori }}</p>
                         <h2 class="text-2xl font-bold mb-2">{{ $barang->nama }}</h2>
                         <div class="flex justify-center items-center text-center mt-4">
-                            <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga) }}</span>
+                            <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga, 0, '.', '.') }}</span>
                         </div>
                     </div>
                 </a>

@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard.barang.index')" :active="request()->routeIs('dashboard.barang.index')">
                         {{ __('Barang Management') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.category.index')" :active="request()->routeIs('dashboard.category.index')">
+                        {{ __('Category Management') }}
+                    </x-nav-link>
                 </div>
             </div>
 

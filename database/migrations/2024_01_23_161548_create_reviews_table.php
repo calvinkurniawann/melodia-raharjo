@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('barang_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedTinyInteger('rating');
             $table->text('comment');
             $table->timestamps();
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');

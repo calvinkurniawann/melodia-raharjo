@@ -18,7 +18,7 @@ class BarangFactory extends Factory
     {
         return [
             'nama' => $this->faker->word,
-            'deskripsi' => $this->faker->sentence,
+            'deskripsi' => $this->faker->paragraphs(5, true),
             'harga' => $this->faker->randomFloat(2, 1000, 10000000),
             'stok' => $this->faker->numberBetween(1, 100),
             'gambar' => "default.jpg",

@@ -17,7 +17,8 @@ class Barang extends Model
         'deskripsi',
         'harga',
         'stok',
-        'gambar'
+        'gambar',
+        'category_id'
     ];
 
     protected $guarded = [
@@ -32,5 +33,10 @@ class Barang extends Model
     public function reviews()
     {
     return $this->hasMany(Review::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
