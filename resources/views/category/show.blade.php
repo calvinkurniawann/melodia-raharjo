@@ -1,23 +1,20 @@
+<x-navbar></x-navbar>
 <x-guest-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $category->name }} Products
-        </h2>
-    </x-slot>
-
-    <div>
+    <div class="ml-5 mt-7 flex">
+        <div class=" w-full bg-white flex flex-col justify-center mr-10">
+            <h1 class="text-4xl text-center font-bold pt-5 mt-5">{{ $category->name }} Products</h1>
         <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full  p-5 ">
-            @foreach ($category->products as $product)
+            @foreach ($category->barangs as $barang)
                 <a href="{{ "/dashboard/barang/".$barang->id }}"
                     class="w-full bg-white rounded-md overflow-hidden text-center flex flex-col justify-center">
                     @if ($barang->gambar == 'default.jpg')
                         <div class="w-sm h-48 block overflow-hidden">
-                            <img class="rounded-t-lg object-cover w-full h-full" src="{{ asset('gambar/default.jpg') }}"
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('gambar/default.jpg') }}"
                                 alt="" />
                         </div>
                     @else
-                        <div class="overflow-hidden w-sm h-48 block">
-                            <img class="rounded-t-lg " src="{{ asset('storage/' . $barang->gambar) }}" alt="" />
+                        <div class="overflow-hidden w-sm h-48 block ">
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('storage/' . $barang->gambar) }}" alt="" />
                         </div>
                     @endif
                     <div class="p-4 flex flex-col justify-center">
@@ -29,6 +26,7 @@
                     </div>
                 </a>
             @endforeach
+        </div>
         </div>
     </div>
 </x-guest-layout>

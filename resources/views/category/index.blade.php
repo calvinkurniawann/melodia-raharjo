@@ -6,7 +6,7 @@
             <h1 class="text-3xl ">Kategori</h1>
         </li>
         @foreach ($categories as $category)
-        <a href="" class="bg-white border-b-2 "> 
+        <a href="{{ route('dashboard.category.show', $category) }}" class="bg-white border-b-2 "> 
             <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 mb-1">
             {{ $category->name }}
             </li>

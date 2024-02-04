@@ -22,7 +22,8 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $category->load('barangs'); 
-        return view('category.show', compact('category'));
+
+        return view('category.show', compact('category',));
     }
 
     public function store(Request $request)
@@ -47,7 +48,7 @@ class CategoryController extends Controller
         // Delete the category and its associated barangs
         $category->delete();
 
-        return redirect()->route('dashboard.categories.index')
+        return redirect()->route('dashboard.category.index')
             ->with('success', 'Category and associated barangs deleted successfully');
     }
 }

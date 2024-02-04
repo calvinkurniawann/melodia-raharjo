@@ -15,4 +15,13 @@ class Category extends Model
     {
         return $this->hasMany(Barang::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($category) {
+            $category->barangs()->delete();
+        });
+    }
 }

@@ -100,19 +100,22 @@
             <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden ">
                 <tbody class="align-middle text-center">
                     @foreach ($cartItems as $barang)
-                        <tr>
-                            <td class="py-2 px-4 border-b align-middle">
+                        <tr class="flex items-center justify-between mx-5">
+                            <td class="py-2 w-48  align-middle">
                                 @if ($barang->gambar == 'default.jpg')
-                                <img class="w-full max-w-40 h-48 max-h-20 object-cover rounded-t-lg" src="{{ asset('gambar/default.jpg') }}"
-                            alt="" />
-                                @else
-                                <img class="w-full max-w-40 h-48 max-h-20 object-cover rounded-t-lg" src="{{ asset('storage/' . $barang->gambar) }}"
-                            alt="" />
-                                @endif
+                        <div class="w-48 h-48 block overflow-hidden">
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('gambar/default.jpg') }}"
+                                alt="" />
+                        </div>
+                    @else
+                        <div class="overflow-hidden w-48 h-48 block ">
+                            <img class="rounded-t-lg object-contain w-full h-full" src="{{ asset('storage/' . $barang->gambar) }}" alt="" />
+                        </div>
+                    @endif
                             </td>
-                            <td class="py-2 px-4 border-b align-middle ">{{ $barang->nama }}</td>
-                            <td class="py-9 px-4 border-b align-middle flex flex-row items-center justify-center ">
-                                <div class="flex border-[1px]">
+                            <td class="py-2 px-4  align-middle ">{{ $barang->nama }}</td>
+                            <td class="py-9 px-4  align-middle flex flex-row items-center justify-center ">
+                                <div class="flex border-[1px] items-center">
                                     <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
                                         class="flex gap-1">
                                         @csrf
@@ -144,8 +147,8 @@
                                     </form>
                                 </div>
                             </td>
-                            <td class="py-2 px-4 border-b align-middle">Rp. {{ number_format($barang->harga) }}</td>
-                            <td class="py-2 px-4 border-b align-middle">
+                            <td class="py-2 px-4  align-middle">Rp. {{ number_format($barang->harga) }}</td>
+                            <td class="py-2 px-10  align-middle">
                                 <form action="{{ route('cart.delete', ['id' => $barang->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit"
