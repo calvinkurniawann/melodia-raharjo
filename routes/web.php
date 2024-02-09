@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::resource('barang', BarangController::class, ['as' => 'dashboard']);
     Route::resource('category', CategoryController::class, ['as' => 'dashboard']);
+    Route::resource('user', UserManagementController::class, ['as' => 'dashboard']);
 })->middleware(['auth', 'verified','auth.admin']);
 
 Route::get('/cart', [CartController::class, 'CartView'])->name('cart');

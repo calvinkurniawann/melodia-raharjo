@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('dashboard.category.index')" :active="request()->routeIs('dashboard.category.index')">
                         {{ __('Category Management') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.user.index')" :active="request()->routeIs('dashboard.user.index')">
+                        {{ __('User Management') }}
+                    </x-nav-link>
                 </div>
             </div>
 
