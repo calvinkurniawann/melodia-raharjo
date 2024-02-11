@@ -29,7 +29,7 @@
                         </label>
                         <input type="password" id="password" name="password"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="2" required>
+                            placeholder="Password" required>
                     </div>
                     <div class="mb-5">
                         <label for="utype"

@@ -96,6 +96,16 @@
     <div class="container mx-auto my-8 ">
         <h2 class="text-4xl font-semibold mb-4 mx-auto text-center">Shopping Cart</h2>
 
+        @php
+            $barangData = [];
+            foreach ($cartItems as $item) {
+                $barangData[] = $item;
+            }
+            foreach ($cartItems as $item) {
+                $quantity = $item->pivot->kuantitas;
+            }
+        @endphp
+
         @if (count($cartItems) > 0)
             <table class="min-w-full bg-white border border-gray-300 rounded-md overflow-hidden ">
                 <tbody class="align-middle text-center">
@@ -165,14 +175,61 @@
             <div class="flex justify-end mt-4">
                 <div class="bg-white p-4 rounded-md shadow-md">
                     <p class="text-lg font-semibold">Total Price: Rp. {{ number_format($totalPrice) }}</p>
-                    <a href=""
+                    <button type="button" id="checkoutButton"
                         class="mt-4 inline-block px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
                         Proceed to Checkout
-                    </a>
+                    </button>
                 </div>
             </div>
         @else
             <p class="text-lg">Your shopping cart is empty.</p>
         @endif
     </div>
+
+    <script>
+        $(document).ready(function() {
+
+            const totalPrice = {!! json_encode($totalPrice) !!}
+
+            $("#checkoutButton").click(function(event) {
+                event.preventDefault();
+
+                const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                const barangData = ({!! json_encode($barangData) !!});
+
+
+                fetch('order/pay-and-create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify({
+                            barangData: barangData,
+                            totalPrice: totalPrice,
+                            id_cart: barangData[0].pivot.id_cart,
+                            payment_status: 'pending'
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        snap.pay(data.snap_token.snap_token, {
+                            onSuccess: function(result) {
+                                window.location.href = '/order/pesanan-paid'
+                            },
+                            onPending: function(result) {
+                                window.location.href = '/order/pesanan-pending'
+                            },
+                            onClose: function(result) {
+                                window.location.href = '/order/pesanan-pending'
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error during fetch:', error);
+                    });
+            });
+        }); // <-- Add this closing brace
+    </script>
 </x-guest-layout>

@@ -47,6 +47,8 @@ class UserManagementController extends Controller
 
     public function update(Request $request, User $user)
     {
+
+        
         // Validate the request data
         $request->validate([
             'name' => 'required',

@@ -140,4 +140,24 @@ class BarangController extends Controller
 
         return redirect()->route('dashboard.barang.index')->with('success', 'Barang has been deleted successfully!');
     }
+
+    public function search(Request $request)
+{
+    $search = $request->input('search');
+    $categories = Category::all();
+
+    $barangs = Barang::leftJoin('categories', 'barangs.category_id', '=', 'categories.id')
+        ->where('barangs.nama', 'like', "%$search%")
+        ->orWhere('categories.name', 'like', "%$search%")
+        ->get();
+
+    // Dump the results for better visibility
+    // dd([
+    //     'results' => $barangs->toArray(),
+    // ]);
+
+    return view('category.index', compact('barangs', 'search', 'categories'));
+}
+
+
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Barang;
 use App\Models\Category;
@@ -54,6 +55,17 @@ Route::get('/cart', [CartController::class, 'CartView'])->name('cart');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+
+Route::get('/barang/search',[BarangController::class,'search']);
+
+Route::post('/order/pay-and-create', [OrderController::class, 'payAndCreateOrder'])->name('order.payAndCreateOrder');
+Route::post('/order/destroy', [OrderController::class, 'destroy'])->name('order.destroy');
+Route::put('/order/terima', [OrderController::class, 'terima'])->name('order.terima');
+Route::put('/order/selesai', [OrderController::class, 'selesai'])->name('order.selesai');
+Route::get('/order/pesanan-pending', [OrderController::class, 'PesananPendingView'])->name('order.PesananPendingView');
+Route::get('/order/pesanan-paid', [OrderController::class, 'PesananPaidView'])->name('order.PesananPaidView');
+
+Route::resource('orders', OrderController::class)->only(['index', 'show']);
 
 Route::get('/category/page', [CategoryController::class, 'page'])->name('categories.page');
 

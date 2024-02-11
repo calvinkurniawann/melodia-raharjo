@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Barang;
 
 class CategoryController extends Controller
 {
     public function page()
     {
-        $categories = Category::with('barangs')->get();
-        return view('category.index', compact('categories'));
+        $categories = Category::all();
+        $barangs = Barang::all();
+        return view('category.index', compact('categories','barangs'));
     }
 
     public function index()
