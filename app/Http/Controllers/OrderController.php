@@ -136,6 +136,16 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'success update status order');
     }
 
+    public function index()
+    {
+        $orderData = OrderDetail::with(['orderItems', 'user'])
+            ->where('payment_status', 'paid')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('dashboard.Order', ['orderData' => $orderData]);
+    }
+
 
     public function destroy(Request $request)
     {
@@ -145,9 +155,9 @@ class OrderController extends Controller
             ->get();
         foreach ($orderData as $order) {
             foreach ($order->orderItems as $orderItem) {
-                $product = barang::where('id', $orderItem["id_product"])->first();
+                $barang = Barang::where('id', $orderItem["id_barang"])->first();
 
-                $product->update([
+                $barang->update([
                     'stok' => $barang->stok + $orderItem->kuantitas
                 ]);
             }

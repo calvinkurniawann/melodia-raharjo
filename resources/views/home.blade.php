@@ -1,15 +1,5 @@
 <x-navbar></x-navbar>
 <x-guest-layout>
-    <!-- <div x-data="{ activeSlide: 0 }" class="w-[90%] mx-10   ">
-        <div class="flex overflow-hidden w-[90%]">
-          <div x-show="activeSlide === 0" class="transition-transform ease-in-out"><img src="" alt=""></div>
-        </div>
-      
-        <div class="flex justify-between mt-3">
-          <button @click="activeSlide = (activeSlide - 1 + 3) % 3">Previous</button>
-          <button @click="activeSlide = (activeSlide + 1) % 3">Next</button>
-        </div>
-    </div> -->
     <section class="bg-slate-950 h-[100vh] w-[100%] flex flex-col items-center justify-center " style="background-image: url({{ asset('gambar/home.jpg') }}); ">
         <div class="text-center mb-7">
             <h1 class="text-7xl text-white font-bold">Melangkah ke Dunia Musik</h1>
@@ -35,7 +25,7 @@
     
     <section class="mt-10 flex justify-center items-center w-full">
     <div class="  p-3 w-full bg-white flex flex-col justify-center m-5">
-        <p class="text-3xl m-3">Terbaru kami: </p>
+        <p class="text-3xl m-3"> <span class="font-bold">Terbaru</span> kami : </p>
         <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full  p-5 ">
             @foreach ($barangs as $barang)
                 <a href="{{ "/dashboard/barang/".$barang->id }}"

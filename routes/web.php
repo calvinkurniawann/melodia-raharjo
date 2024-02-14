@@ -49,6 +49,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('barang', BarangController::class, ['as' => 'dashboard']);
     Route::resource('category', CategoryController::class, ['as' => 'dashboard']);
     Route::resource('user', UserManagementController::class, ['as' => 'dashboard']);
+    Route::resource('order', OrderController::class, ['as' => 'dashboard']);
 })->middleware(['auth', 'verified','auth.admin']);
 
 Route::get('/cart', [CartController::class, 'CartView'])->name('cart');

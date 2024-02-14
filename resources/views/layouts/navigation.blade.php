@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('dashboard.user.index')" :active="request()->routeIs('dashboard.user.index')">
                         {{ __('User Management') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.order.index')" :active="request()->routeIs('dashboard.order.index')">
+                        {{ __('Order Management') }}
+                    </x-nav-link>
                 </div>
             </div>
 
