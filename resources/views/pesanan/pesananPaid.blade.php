@@ -19,12 +19,12 @@
                 <div class="flex w-full items-center justify-between">
                     <div>
                         <span class="text-[10px]">Tanggal:</span>
-                        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+                        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900">
                             {{ $order->created_at }}</p>
                     </div>
                     <div>
                         <span class="text-[10px]">Order id:</span>
-                        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
+                        <p class="mb-2 text-sm font-semibold tracking-tight text-gray-900">
                             {{ $order->unique_string }}</p>
                     </div>
                 </div>
@@ -32,13 +32,13 @@
                     <div>
                         <span class="text-[10px]">Status:</span>
                         @if ($order->status == 'Menunggu Konfirmasi')
-                            <p class="mb-2 text-sm font-semibold tracking-tight text-orange-500 dark:text-white">
+                            <p class="mb-2 text-sm font-semibold tracking-tight text-orange-500 ">
                                 {{ $order->status }}</p>
                         @elseif ($order->status == 'Proses')
-                            <p class="mb-2 text-sm font-semibold tracking-tight text-blue-400 dark:text-white">
+                            <p class="mb-2 text-sm font-semibold tracking-tight text-blue-400 ">
                                 {{ $order->status }}</p>
                         @elseif ($order->status == 'Selesai')
-                            <p class="mb-2 text-sm font-semibold tracking-tight text-green-600 dark:text-white">
+                            <p class="mb-2 text-sm font-semibold tracking-tight text-green-600 ">
                                 {{ $order->status }}</p>
                         @endif
                     </div>
@@ -50,9 +50,9 @@
                         <p class=" text-sm text-gray-700">Kuantitas: </p>
                         <p class=" text-sm text-gray-700">Harga: </p>
                     </div>
-                    @foreach ($order->orderItems as $product)
+                    @foreach ($order->orderItems as $barang)
                         <div class="w-full flex justify-between items-center mt-2 border-b-2 pb-2">
-                            <p class=" text-sm text-gray-700">{{ $barang->nama }}</p>
+                            <p class=" text-sm text-gray-700">{{ $barang->nama_barang }}</p>
                             <p class=" text-sm text-gray-700">{{ $barang->kuantitas }}</p>
                             <p class=" text-sm text-gray-700">Rp. {{ number_format($barang->harga) }}</p>
                         </div>

@@ -16,15 +16,15 @@
                 @endphp
 
                 <div id="toggleButton_{{ $order->id }}" data-order-id="{{ $order->id }}"
-                    class="relative cursor-pointer col-span-1 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 max-h-[200px] overflow-hidden">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    class="relative cursor-pointer col-span-1 p-6 bg-white border border-gray-200 rounded-lg shadow max-h-[200px] overflow-hidden">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
                         Order id:</h5>
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                         {{ $order->unique_string }}</h5>
-                    <p class="mt-2 font-normal text-gray-700 dark:text-gray-400">
+                    <p class="mt-2 font-normal text-gray-700 ">
                         Total harga:
                     </p>
-                    <p class="mb-3 text-black font-semibold dark:text-gray-400">
+                    <p class="mb-3 text-black font-semibold ">
                         Rp. {{ number_format($order->total_harga) }}
                     </p>
                     <div class="absolute bottom-3 right-2 flex justify-between items-center space-x-2">
@@ -70,9 +70,7 @@
                         </div>
                         <div class="flex items-center justify-between mb-8">
                             <div class="flex items-center">
-                                <img class="h-8 w-8 mr-2"
-                                    src="https://tailwindflex.com/public/images/logos/favicon-32x32.png" alt="Logo" />
-                                <div class="text-gray-700 font-semibold text-lg">Asal Gemi</div>
+                                <div class="text-gray-700 font-semibold text-lg">MeloGita</div>
                             </div>
                             <div class="text-gray-700">
                                 <div class="font-bold text-xl mb-2">INVOICE</div>

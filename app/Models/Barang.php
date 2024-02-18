@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Barang extends Model
 {
@@ -21,6 +22,8 @@ class Barang extends Model
         'category_id'
     ];
 
+    const EXCERPT_LENGTH = 20;
+
     protected $guarded = [
         'id'
     ];
@@ -28,6 +31,11 @@ class Barang extends Model
     public function carts()
     {
         return $this->belongsToMany(Cart::class, 'cart_product', 'id_product', 'id_cart')->withPivot('kuantitas');
+    }
+
+    public function excerpt()
+    {
+        return Str::limit($this->nama, Barang::EXCERPT_LENGTH);
     }
 
     public function reviews()

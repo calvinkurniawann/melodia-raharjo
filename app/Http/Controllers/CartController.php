@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
+    public function cartCount()
+    {
+    return Cart::sum('kuantitas');
+    }
+
     public function CartView(Request $request)
     {
         // Check if the user is authenticated

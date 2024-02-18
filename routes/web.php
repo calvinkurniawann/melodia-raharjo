@@ -25,9 +25,12 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    $barangs = Barang::latest()->get();
+    $barangs = Barang::latest()->take(5)->get();
+    $guitarProducts = Barang::where('category_id', '6')->get();
+    $keyboardProducts = Barang::where('category_id', '3')->get();
+    $drumProducts = Barang::where('category_id', '5')->get();
     return view('home', compact(
-        'barangs'
+        'barangs', 'guitarProducts', 'keyboardProducts', 'drumProducts'
     ));
 });
 
