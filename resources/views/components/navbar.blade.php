@@ -1,25 +1,38 @@
-@php
-    $cartCount = app(\App\Http\Controllers\CartController::class)->cartCount();
-@endphp
 
 <nav class="bg-slate-950 p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="/" class="text-white font-bold text-3xl">Melo<span class="text-blue-400">Gita</span></a>
-
-        <!-- Mobile Menu Button -->
-        <div class="block lg:hidden">
-            <button id="mobile-menu-btn" class="text-white focus:outline-none">
-                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
+        <div class="flex flex-row items-center">
+            <img src="{{ asset('gambar/logo.png') }}" alt="" class="w-16 h-16">
+            <a href="/" class="text-white font-bold text-2xl">Melo<span class="text-[#00ccff]">Gita</span></a>
         </div>
 
-        <!-- Desktop Menu -->
+        <div class="flex flex-row">
+            <div class="flex justify-center items-center mb-3 h-2 lg:hidden">
+                <div class="relative py-2">
+                    <a href="/cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="file: mt-4 h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                        @if ($cartItemCount > 0)
+                        <span class="bg-red-600 top-4 left-4 right-0 flex items-center justify-center text-sm text-white rounded-full h-5 w-5 absolute">
+                            {{ $cartItemCount }}
+                        </span>
+                        @endif
+                    </a>
+                </div>
+            </div>
+            <div class="block lg:hidden ml-7">
+                <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
         <div class="hidden lg:flex justify-between items-center m-2 mr-10">
             <a href="/category/page" class="text-white mx-4">Produk</a>
-            <a href="" class="text-white mx-4">Kontak</a>
-            <a href="" class="text-white mx-4">Tentang Kami</a>
+            <a href="/kontak" class="text-white mx-4">Kontak</a>
             <a href="/order/pesanan-pending" class="text-white mx-4">Order</a>
 
             <!-- Dropdown for User -->
@@ -36,7 +49,7 @@
                         </button>
                         <ul class="absolute hidden pt-1 group-active:block bg-white text-black">
                             @if (Auth::user()->utype === 'ADM')
-                                <li><a href="/dashboard/barang" class="text-left px-4 py-6 mb-2">Dashboard</a></li>
+                                <li><a href="/dashboard/report" class="text-left px-4 py-6 mb-2">Dashboard</a></li>
                             @else 
                                 <li><a href="{{ route('profile.show') }}" class="text-left px-4 py-6 mb-2">Profile</a></li>
                             @endif
@@ -55,12 +68,14 @@
             <div class="flex justify-center items-center mb-3 h-2">
                 <div class="relative py-2">
                     <a href="/cart">
-                        @if($cartCount > 0)
-                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ $cartCount }}</span>
-                        @endif
                         <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="file: mt-4 h-6 w-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                         </svg>
+                        @if ($cartItemCount > 0)
+                        <span class="bg-red-600 top-4 left-4 right-0 flex items-center justify-center text-sm text-white rounded-full h-5 w-5 absolute">
+                            {{ $cartItemCount }}
+                        </span>
+                        @endif
                     </a>
                 </div>
             </div>
@@ -71,17 +86,15 @@
     <div id="mobile-menu" class="hidden lg:hidden">
         <div class="flex flex-col items-center bg-slate-950 text-white py-2">
             <a href="/category/page" class="my-2">Produk</a>
-            <a href="" class="my-2">Kontak</a>
-            <a href="" class="my-2">Tentang Kami</a>
+            <a href="/kontak" class="my-2">Kontak</a>
+            {{-- <a href="" class="my-2">Tentang Kami</a> --}}
             <a href="/order/pesanan-pending" class="my-2">Order</a>
 
-            <!-- Mobile Dropdown for User -->
             <div class="relative text-blue-400 mt-2">
                 @guest
                     <a href="{{ route('login') }}" class="my-2">Login</a>
                     <a href="{{ route('register') }}" class="my-2">Register</a>
                 @else
-                    <!-- Mobile Dropdown for Authenticated User -->
                     <div class="group inline-block relative">
                         <button class="text-white focus:outline-none">
                             {{ Auth::user()->name }}
@@ -105,6 +118,7 @@
             </div>
         </div>
     </div>
+    
 </nav>
 
 <script>

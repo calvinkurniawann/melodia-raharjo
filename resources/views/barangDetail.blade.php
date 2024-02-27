@@ -1,5 +1,16 @@
 <x-guest-layout>
     <section class="text-gray-700 body-font overflow-hidden bg-white h-full">
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-4 mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-4 mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
         <a href="/">
             <button type="button"
                 class="relative left-8 top-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-7 py-4 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kembali</button>
@@ -35,7 +46,7 @@
                 <button class="flex text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-white hover:border-r-[3px] hover:border-b-[3px] hover:border-[1px] hover:text-black hover:border-black rounded " type="submit">Add to Cart</button>
             </form>
           </div>
-          <div class="flex flex-col justify-center mt-10">
+          {{-- <div class="flex flex-col justify-center mt-10">
             <h1 class="text-gray-900 text-4xl title-font font-bold mb-5">Product Comment</h1>
             <form method="post" action="{{ route('reviews.store') }}">
                 @csrf
@@ -57,7 +68,7 @@
                 <p class="text-md">No reviews yet.</p>
                 @endforelse
             </div>
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>

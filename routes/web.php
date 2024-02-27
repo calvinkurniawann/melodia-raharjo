@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Barang;
 use App\Models\Category;
@@ -26,9 +27,9 @@ use App\Models\Category;
 
 Route::get('/', function () {
     $barangs = Barang::latest()->take(5)->get();
-    $guitarProducts = Barang::where('category_id', '6')->get();
-    $keyboardProducts = Barang::where('category_id', '3')->get();
-    $drumProducts = Barang::where('category_id', '5')->get();
+    $guitarProducts = Barang::where('category_id', '1')->get();
+    $keyboardProducts = Barang::where('category_id', '2')->get();
+    $drumProducts = Barang::where('category_id', '4')->get();
     return view('home', compact(
         'barangs', 'guitarProducts', 'keyboardProducts', 'drumProducts'
     ));
@@ -39,6 +40,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/kontak', [ProfileController::class, 'kontak'])->name('kontak');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/my-account',[UserController::class,'index'])->name('user.index');
@@ -53,9 +55,13 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('category', CategoryController::class, ['as' => 'dashboard']);
     Route::resource('user', UserManagementController::class, ['as' => 'dashboard']);
     Route::resource('order', OrderController::class, ['as' => 'dashboard']);
+    Route::resource('report', ReportController::class, ['as' => 'dashboard']);
 })->middleware(['auth', 'verified','auth.admin']);
 
+Route::get('/dashboard/export-excel', [ReportController::class, 'exportExcel'])->name('export-excel');
+
 Route::get('/cart', [CartController::class, 'CartView'])->name('cart');
+Route::post('/cart/address', [CartController::class, 'updateAlamat'])->name('cart.address');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');

@@ -12,6 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.report.index')" :active="request()->routeIs('dashboard.report.index')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('dashboard.barang.index')" :active="request()->routeIs('dashboard.barang.index')">
                         {{ __('Barang Management') }}
                     </x-nav-link>
@@ -22,7 +25,14 @@
                         {{ __('User Management') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard.order.index')" :active="request()->routeIs('dashboard.order.index')">
+                        <div>
+                        {{-- @if ($orderCount > 0)
+                            <span class="bg-red-600 ml-[90%] flex items-center justify-center text-sm text-white rounded-full h-3 w-3">
+                            </span>
+                        @endif --}}
                         {{ __('Order Management') }}
+                        </div>
+                        
                     </x-nav-link>
                 </div>
             </div>

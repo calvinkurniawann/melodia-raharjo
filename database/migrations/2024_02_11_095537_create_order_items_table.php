@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_barang')->references('id')->on('barangs')->onDelete('cascade');
             $table->string('nama_barang');
             $table->decimal('harga', 10, 2);
+            $table->string('shipping_method')->nullable();
             $table->integer('kuantitas');
             $table->timestamps();
         });

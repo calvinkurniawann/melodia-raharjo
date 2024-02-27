@@ -14,7 +14,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input type="text" id="default-search" name="search" value="{{ isset($search) ? $search : ''}}" class="block w-full p-3 sm:p-4 pl-10 pr-8 text-sm text-gray-900 placeholder-gray-500 focus:outline-none bg-transparent" placeholder="Guitar, Drum, Bass, etc..." required>
+                    <input type="text" id="default-search" name="search" value="{{ isset($search) ? $search : ''}}" class="block w-full mx-2 p-3 sm:p-4 pl-10 pr-8 text-sm text-gray-900 placeholder-gray-500 focus:outline-none bg-transparent" placeholder="Guitar, Drum, Bass, etc..." required>
                     <button type="submit" class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 sm:py-3">Search</button>
                 </div>
             </form>                                                    
@@ -40,7 +40,7 @@
                     @endif
                     <div class="p-4 flex flex-col justify-center">
                         <p class="text-gray-700 mb-4">{{ $barang->kategori }}</p>
-                        <h2 class="text-2xl font-bold mb-2">{{ $barang->excerpt() }}</h2>
+                        <h2 class="text-xl font-bold mb-2">{{ $barang->excerpt() }}</h2>
                         <div class="flex justify-center items-center text-center mt-4">
                             <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga, 0, '.', '.') }}</span>
                         </div>
@@ -86,7 +86,7 @@
                     @endif
                     <div class="p-4 flex flex-col justify-center">
                         <p class="text-gray-700 mb-4">{{ $barang->kategori }}</p>
-                        <h2 class="text-2xl font-bold mb-2">{{ $barang->nama }}</h2>
+                        <h2 class="text-xl font-bold mb-2">{{ $barang->excerpt() }}</h2>
                         <div class="flex justify-center items-center text-center mt-4">
                             <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga, 0, '.', '.') }}</span>
                         </div>
@@ -123,7 +123,7 @@
                     @endif
                     <div class="p-4 flex flex-col justify-center">
                         <p class="text-gray-700 mb-4">{{ $barang->kategori }}</p>
-                        <h2 class="text-2xl font-bold mb-2">{{ $barang->nama }}</h2>
+                        <h2 class="text-xl font-bold mb-2">{{ $barang->excerpt() }}</h2>
                         <div class="flex justify-center items-center text-center mt-4">
                             <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga, 0, '.', '.') }}</span>
                         </div>
@@ -160,7 +160,7 @@
                     @endif
                     <div class="p-4 flex flex-col justify-center">
                         <p class="text-gray-700 mb-4">{{ $barang->kategori }}</p>
-                        <h2 class="text-2xl font-bold mb-2">{{ $barang->nama }}</h2>
+                        <h2 class="text-xl font-bold mb-2">{{ $barang->excerpt() }}</h2>
                         <div class="flex justify-center items-center text-center mt-4">
                             <span class="text-gray-800 text-center"> Rp. {{ number_format($barang->harga, 0, '.', '.') }}</span>
                         </div>
@@ -177,5 +177,6 @@
         </div>
     </div>
     </section>
+    <x-footer></x-footer>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 </x-guest-layout>

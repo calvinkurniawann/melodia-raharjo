@@ -59,7 +59,7 @@
                     @endforeach
                     <div class="w-full flex justify-between items-center mt-1 border-b-2 pb-2">
                         <p class=" text-sm text-gray-700">Ongkos Kirim: </p>
-                        <p class=" text-sm text-gray-700">Rp. 2.000</p>
+                        <p class=" text-sm text-gray-700">Rp. 15,000</p>
                     </div>
                 </div>
                 <div class="flex justify-end mt-8">
@@ -75,4 +75,5 @@
         <p class="text-3xl mt-20">Belum ada order yang kamu bayar</p>
     </div>
 @endif
+<x-footer></x-footer>
 </x-guest-layout>

@@ -66,6 +66,7 @@ class OrderController extends Controller
                     'first_name' => $user->name,
                     'email'      => $user->email,
                     'nomor_hp'   => $user->no_telepon,
+                    'alamat'   => $user->alamat,
                 ],
                 
             ];

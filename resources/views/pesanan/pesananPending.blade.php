@@ -100,7 +100,13 @@
                                         <td class="py-4 text-gray-700">{{ $barang->kuantitas }}</td>
                                         <td class="py-4 text-gray-700">Rp. {{ number_format($barang->harga) }}</td>
                                         <td class="py-4 text-gray-700">Rp.
-                                            {{ number_format($barang->harga * $barang->kuantitas) }}</td>
+                                            {{ number_format($barang->harga * $barang->kuantitas ) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4 text-gray-700">Ongkos Kirim</td>
+                                        <td class="py-4 text-gray-700"></td>
+                                        <td class="py-4 text-gray-700"></td>
+                                        <td class="py-4 text-gray-700">Rp. 15,000<td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -143,6 +149,7 @@
             <p class="text-3xl mt-20">Belum ada order apapun yang kamu buat</p>
         </div>
     @endif
+    <x-footer></x-footer>
 
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
@@ -181,13 +188,13 @@
                     try {
                         snap.pay(snapToken, {
                             onSuccess: function(result) {
-                                window.location.href = '/order/pesanan'
+                                window.location.href = '/order/pesanan-paid'
                             },
                             onPending: function(result) {
-                                window.location.href = '/order/pesanan'
+                                window.location.href = '/order/pesanan-pending'
                             },
                             onClose: function(result) {
-                                window.location.href = '/order/pesanan'
+                                window.location.href = '/order/pesanan-pending'
                             }
                         });
                     } catch (error) {

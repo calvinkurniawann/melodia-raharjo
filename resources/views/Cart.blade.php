@@ -1,94 +1,17 @@
-{{-- <x-guest-layout>
-    <a href="/">
-        <button type="button"
-            class="relative left-8 top-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kembali</button>
-    </a>
 
-    @if ($totalPrice !== 0)
-        @foreach ($cartItems as $barang)
-            <div class="container flex mx-auto my-8 p-5 bg-white rounded-md shadow-md w-11/12">
-                <div class="w-1/2 flex items-center">
-                    @if ($barang->gambar == 'default.jpg')
-                        <img class="w-full max-w-40 h-48 max-h-20 object-cover rounded-t-lg" src="{{ asset('gambar/default.jpg') }}"
-                            alt="" />
-                    @else
-                        <img class="w-full max-w-40 h-48 max-h-20 object-cover rounded-t-lg" src="{{ asset('storage/' . $barang->gambar) }}"
-                            alt="" />
-                    @endif
-                    <p class="text-xl ml-10">{{ $barang['nama'] }}</p>
-                </div>
-
-                <div class="flex w-1/2 font-bold align-middle items-center justify-between">
-
-                    <p>{{ $barang['pivot']['kuantitas'] }}</p>
-                    <div class="mr-8">
-                        <p class="font-semibold">{{ 'Rp. ' . number_format($barang['harga']) }}</p>
-                    </div>
-                    <div class="flex flex-row justify-between items-center mt-2">
-
-                        <div class="flex gap-1 items-center justify-between">
-
-                            <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
-                                class="flex gap-1">
-                                @csrf
-                                <input type="hidden" value="increment" name="action">
-                                <button
-                                    class="flex text-center items-center justify-center w-[30px] h-[30px] bg-red-600 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
-                                    type="submit" name="action" value="increment">
-                                    <svg class="flex w-4 h-4 text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="3" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </button>
-                            </form>
-
-                            <form action="{{ route('cart.update', ['id' => $barang->id]) }}" method="POST"
-                                class="flex gap-1">
-                                @csrf
-                                <input type="hidden" value="decrement" name="action">
-                                <button
-                                    class="flex text-center items-center justify-center w-[30px] h-[30px] bg-red-600 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
-                                    type="submit">
-                                    <svg class="flex w-4 h-4 text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="3" d="M1 1h16" />
-                                    </svg>
-                                </button>
-                            </form>
-
-                            <form action="{{ route('cart.delete', ['id' => $barang->id]) }}" method="POST">
-                                @csrf
-                                <button
-                                    class="flex text-center items-center justify-center w-[30px] h-[30px] bg-red-600 rounded-lg transition-all duration-300 active:scale-95 text-white hover:brightness-125"
-                                    type="submit" name="action" value="delete">
-                                    <svg class="flex w-5 h-5 text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    @endif
-
-    <div class="container flex justify-between mx-auto my-8 p-8 bg-white rounded-md shadow-md w-11/12">
-        <div>
-            <p class="font-semibold">Total harga: </p>
-            <p class="font-bold">{{ 'Rp. ' . number_format($totalPrice) }}</p>
-        </div>
-    </div>
-</x-guest-layout> --}}
-
-<!-- resources/views/cart.blade.php -->
 
 <x-guest-layout>
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-4 mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-4 mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
     <a href="/">
         <button type="button"
             class="relative left-8 top-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kembali</button>
@@ -168,9 +91,48 @@
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
+                        <tr class="flex items-center justify-between mx-5 border-t-2 py-5">
+                            <td class="py-2 px-4  align-middle ">
+
+                            </td>
+                            <td class="py-2 px-4  align-middle ">
+                                Ongkos Kirim
+                            </td>
+                            <td class="py-2 px-4  align-middle ">
+
+                            </td>
+                            <td class="py-2 px-4  align-middle ">
+                                Rp. 15,000
+                            </td>
+                            <td class="py-2 px-4  align-middle ">
+                                
+                            </td>
+                        </tr>
                 </tbody>
             </table>
+            
+            <div class="w-full bg-white p-5 rounded mt-5">
+                {{-- <div class=" bg-white  w-full">
+                    <label for="deliveryOption" class="block text-sm font-medium text-gray-700">Delivery Option</label>
+                    <select id="deliveryOption" name="deliveryOption" class="mt-1 p-2 block w-full border rounded-md bg-gray-100" onchange="toggleAddressForm()">
+                        <option value="Ambil di Toko">Ambil di Toko</option>
+                        <option value="Kirim" selected>Kirim</option>
+                    </select>
+                </div> --}}
+                <form action="{{ route('cart.address') }}" method="POST" class="mt-4">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
+                        <textarea id="alamat" name="alamat" rows="3" class="mt-1 p-2 block w-full border rounded-md bg-gray-100" placeholder="Enter your delivery address">{{ auth()->user()->alamat }}</textarea>
+                    </div>
+            
+            
+                    <button type="submit" class="inline-block px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                        Perbarui Alamat
+                    </button>
+                </form>
+            </div>
 
             <div class="flex justify-end mt-4">
                 <div class="bg-white p-4 rounded-md shadow-md">
@@ -192,7 +154,9 @@
     <script>
         $(document).ready(function() {
 
-            const totalPrice = {!! json_encode($totalPrice) !!}
+            const baseTotalPrice = {!! json_encode($totalPrice) !!};
+            // const ongkir = 15000;
+            const totalPrice = baseTotalPrice ;
 
             $("#checkoutButton").click(function(event) {
                 event.preventDefault();
@@ -233,6 +197,6 @@
                         console.error('Error during fetch:', error);
                     });
             });
-        }); // <-- Add this closing brace
+        });
     </script>
 </x-guest-layout>

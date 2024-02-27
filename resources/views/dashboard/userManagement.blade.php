@@ -10,18 +10,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <table class="min-w-full divide-y divide-gray-200 mt-2">
+                <table id="sortable" class="min-w-full divide-y divide-gray-200 mt-2">
                     <thead>
                         <tr>
-                            <td class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th onclick="sortBy(1)" class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Name
-                            </td>
-                            <td class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            </th>
+                            <th onclick="sortBy(2)" class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
-                            </td>
-                            <td class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            </th>
+                            <th onclick="sortBy(3)" class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Tipe User
-                            </td>
+                            </th>
                             <td class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Aksi
                             </td>
@@ -56,4 +56,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        cPrev = -1;
+
+function sortBy(c) {
+    rows = document.getElementById("sortable").rows.length;
+    columns = document.getElementById("sortable").rows[0].cells.length;
+    arrTable = [...Array(rows)].map(e => Array(columns));
+
+    for (ro=0; ro<rows; ro++) {
+        for (co=0; co<columns; co++) {
+            arrTable[ro][co] = document.getElementById("sortable").rows[ro].cells[co].innerHTML;
+        }
+    }
+
+    th = arrTable.shift();
+
+    if (c !== cPrev) {
+        arrTable.sort(
+            function (a, b) {
+                if (a[c] === b[c]) {
+                    return 0;
+                } else {
+                    return (a[c] < b[c]) ? -1 : 1;
+                }
+            }
+        );
+    } else {
+        arrTable.reverse();
+    }
+    
+    cPrev = c;
+
+    arrTable.unshift(th);
+
+    for (ro=0; ro<rows; ro++) {
+        for (co=0; co<columns; co++) {
+            document.getElementById("sortable").rows[ro].cells[co].innerHTML = arrTable[ro][co];
+        }
+    }
+}
+    </script>
 </x-app-layout>

@@ -22,7 +22,7 @@ class Barang extends Model
         'category_id'
     ];
 
-    const EXCERPT_LENGTH = 20;
+    const EXCERPT_LENGTH = 15;
 
     protected $guarded = [
         'id'

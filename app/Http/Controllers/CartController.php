@@ -5,17 +5,14 @@ use App\Models\User;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
-    public function cartCount()
-    {
-    return Cart::sum('kuantitas');
-    }
-
     public function CartView(Request $request)
     {
         // Check if the user is authenticated
@@ -29,7 +26,8 @@ class CartController extends Controller
             }
     
             $cartItems = $cart->products()->withPivot('kuantitas')->get();
-    
+
+            $ongkir = 15000;
             $calculateTotalHarga = function ($cartItems) {
                 return $cartItems->reduce(function ($total, $item) {
                     $productHarga = $item['harga'] * $item['pivot']['kuantitas'];
@@ -37,21 +35,18 @@ class CartController extends Controller
                 }, 0);
             };
     
-            $totalPrice = $calculateTotalHarga($cartItems);
+            $totalPrice = $calculateTotalHarga($cartItems) + $ongkir;
     
             return view('cart', compact('cartItems', 'totalPrice'));
         } else {
-            // Handle the case where the user is not authenticated
-            return redirect()->route('login'); // You can redirect to the login page or handle it according to your application logic.
+            return redirect()->route('login'); 
         }
     }
-    
-
 
     public function addToCart(Request $request)
     {
         $productId = (int)$request->input('id_product');
-        $product = Barang::findOrFail($productId);
+        $barang = Barang::findOrFail($productId);
         $user = auth()->user();
 
         if ($user) {
@@ -66,19 +61,24 @@ class CartController extends Controller
             $currentKuantitas = $cart->products()->where('id_product', $productId)->first()->pivot->kuantitas;
             $newKuantitas = $currentKuantitas + 1;
 
-            if ($newKuantitas <= $product->stok) {
-                Log::info($product->stok);
+            if ($newKuantitas <= $barang->stok) {
+                Log::info($barang->stok);
                 $cart->products()->updateExistingPivot($productId, ['kuantitas' => DB::raw($newKuantitas)]);
                 return redirect()->route('cart')->with('success', 'Item added to cart successfully!');
             } else {
                 return redirect()->back()->with('error', 'Stok tidak cukup');
             }
         } else {
+            if ($kuantitas <= $barang->stok) {
             $cart->products()->attach($productId, ['kuantitas' => $kuantitas]);
-            return redirect()->route('cart')->with('success', 'Kuantitas added to the product successfully!');
-        }
+                return redirect()->route('cart')->with('success', 'Kuantitas added to the product successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Stok tidak cukup');
+            }
+        }   
 
-        return redirect()->back()->with('error', 'Item failed to go to cart..');
+        return redirect()->back()->with('error', 'Item failed to go to the cart.');
+
     }
 
     public function delete($productId)
@@ -93,9 +93,25 @@ class CartController extends Controller
         return redirect('/home')->with('error', 'Product not found');
     }
 
+    public function updateAlamat(Request $request)
+    {
+    $user = Auth::user();
+
+    $request->validate([
+        'alamat' => 'required|string|max:255',
+    ]);
+
+    $user->update([
+        'alamat' => $request->input('alamat'),
+    ]);
+
+    return Redirect::route('cart')->with('success', 'Alamat berhasil Diperbarui!');
+}
+
     // UPDATE
     public function update(Request $request, $productId)
     {
+        $kuantitas = $request->input('kuantitas', 1);
         $action = $request->input('action');
         $user = auth()->user();
         $cart = $user->cart;
@@ -105,6 +121,7 @@ class CartController extends Controller
         if (!$cart) {
             return redirect()->route('home')->with('error', 'Product not found.');
         }
+
         if ($cart->products()->where('id_product', $product->id)->exists()) {
             $currentKuantitas = $cart->products()->where('id_product', $product->id)->first()->pivot->kuantitas;
 
@@ -115,7 +132,7 @@ class CartController extends Controller
                     $cart->products()->updateExistingPivot($product->id, ['kuantitas' => DB::raw($newKuantitas)]);
                     return redirect()->route('cart')->with('success', 'Cart updated successfully.');
                 } else {
-                    return redirect()->route('cart')->with('eror', 'Stok tidak mencukupo');
+                    return redirect()->route('cart')->with('error', 'Stok tidak mencukupo');
                 }
             } else {
                 // Remove the record from the pivot table
